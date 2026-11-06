@@ -16,6 +16,21 @@ Use this guide while making your cashflow. The main distinction is between **whe
 
 Try the fictional example first if you want to explore without using a real budget.
 
+## Opening a downloaded copy on macOS
+
+The current release is unsigned and not notarized. macOS may show **Not Opened** and say Apple could not verify that the launcher is free of malware. Local app tests do not replace Apple's verification.
+
+If you downloaded the release from the Cashflow Builder GitHub repository and choose to trust it:
+
+1. Click **Done** in the warning.
+2. Open **System Settings → Privacy & Security** and scroll to **Security**.
+3. Find **Start Cashflow Builder.command** and click **Open Anyway**.
+4. Review the confirmation, click **Open**, and authenticate if asked.
+
+The updater may need the same per-file approval. Check the exact name if another component is blocked. If the warning says software will damage your computer, is damaged, or no exception is available, stop and report the message. Do not disable Gatekeeper globally or remove quarantine from your whole Downloads folder.
+
+Apple's reference: https://support.apple.com/en-us/102445. A signed and notarized package is not yet available.
+
 ## Which workbook am I editing?
 
 Import creates two copies inside your project:

@@ -44,6 +44,7 @@ The app can be launched with `app/Start Cashflow Builder.command`. Use fictional
 1. Update `app/version.py`, the changelog, guide version and download filename in the README. Keep the version and date consistent.
 2. Build help, run the package script, then run `scripts/check.py` using the bundled runtime. Packaging rejects unexpected first-party files and never includes Projects or backups.
 3. Check the archive inventory and hashes. Test a fresh unzip, launch, fictional import, save/reopen and update of an older test installation.
+   Also test a browser-downloaded release on a clean Mac account. A local ZIP/launch test does not exercise download quarantine or establish Gatekeeper acceptance. Record signing/notarization status and any first-open prompts; never describe local launch success as an Apple security check.
 4. Commit the source and documentation, then tag the exact tested commit `v<version>`.
 5. Push the commit and tag. Publish a GitHub release with the versioned macOS ZIP and its SHA-256 checksum. Source-only ZIPs are not end-user installers.
 6. Include the supported platform, update instructions and material limitations in the release notes. Retain prior releases for rollback.

@@ -10,6 +10,12 @@ Import an existing FFF budget and export an FFF cashflow.
 4. Set production periods, select costs, assign timing and **Save changes**.
 5. Use **Open cashflow workbook** to open the working budget and its cashflow sheet.
 
+## If macOS blocks the launcher
+
+This release is unsigned and not notarized. If you downloaded it from the Cashflow Builder GitHub release and choose to trust it, click **Done** on the “Not Opened” warning. Open **System Settings → Privacy & Security**, scroll to **Security**, and choose **Open Anyway** for **Start Cashflow Builder.command**. Confirm **Open** and authenticate if asked. The updater may need its own approval.
+
+If the warning instead says software will damage your computer or is damaged, stop and report the exact message. Do not disable Gatekeeper globally. Apple's instructions: https://support.apple.com/en-us/102445.
+
 ## Instructions
 
 Open **help.html** in this folder, or click **Help** in the app. It covers:

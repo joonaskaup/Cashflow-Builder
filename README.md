@@ -16,6 +16,21 @@ Start with a rough plan for several costs at once. Refine individual costs with 
 
 The package includes Python and the libraries it needs. You do not need to install a programming environment. It is a folder-based app, not a signed or notarized macOS installer.
 
+### If macOS says “Not Opened”
+
+The current release is **unsigned and not notarized**. macOS may block the downloaded launcher with “Apple could not verify … is free of malware”. Local launch tests do not replace Apple's verification.
+
+If you downloaded it from this repository's release and choose to trust it:
+
+1. Click **Done** in the warning.
+2. Open **System Settings → Privacy & Security**, then scroll to **Security**.
+3. Find the blocked **Start Cashflow Builder.command** and click **Open Anyway**.
+4. Review the confirmation and click **Open**. Authenticate if macOS asks.
+
+The updater may need the same per-file approval. If another component is blocked, check its exact name before proceeding. If the message says the software **will damage your computer**, is **damaged**, or no exception is available, stop and report that exact message.
+
+See [Apple's opening instructions](https://support.apple.com/en-us/102445). Do not disable Gatekeeper globally or remove quarantine from your entire Downloads folder. A signed and notarized package is not yet available.
+
 ## How planning works
 
 | Choose this | When it is useful | If production dates change |
