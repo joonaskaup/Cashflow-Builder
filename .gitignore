@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+.env
+.env.*
+app/runtime/
+dist/
+**/Projects/
+**/Original/
+**/Budget/
+**/outputs/
+**/work/
+**/backups/
+**/App backups/
+*.zip
+*.xls
+*.xlsm
+*.xlsx
+!app/Example/Fictional budget.xlsx
+*.inspect.ndjson
+.coverage
+.pytest_cache/

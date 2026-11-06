@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cashflow Builder · Projects</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header><div><h1>Cashflow Builder</h1><p>Import an existing FFF budget and export an FFF cashflow.</p><small>__APP_VERSION__</small></div><div><a href="/help.html" target="_blank" rel="noopener">Help</a> <button id="stop">Stop app</button></div></header>
+<main>
+<div id="notice" role="status" aria-live="polite"></div>
+<section>
+<h2>Your projects</h2>
+<div id="projects"><p class="muted">Opening local projects…</p></div>
+<p class="muted" id="folder"></p>
+</section>
+<section class="refresh-help">
+<h2>Updating an existing budget</h2>
+<p>Use <strong>Refresh budget</strong> inside your project to update the cost breakdown while keeping saved timing.</p>
+<p><a href="/help.html#if-the-budget-changes" target="_blank" rel="noopener">Updating figures, quantities and rows — step-by-step guide</a></p>
+<details><summary>How to refresh without starting over</summary>
+<ol>
+<li>Open your project and save any pending payment or date edits.</li>
+<li>Choose <strong>Open cashflow workbook</strong>. Edit the budget figures in this working copy in Excel.</li>
+<li>Save and close the Excel workbook, then click <strong>Refresh budget</strong> in the app.</li>
+<li>Review new or changed costs. Existing costs keep their timing when the app can match them; substantial row changes may need your review.</li>
+</ol>
+<p>Percentage allocations follow the new budget amount. Fixed euro amounts may need adjusting.</p>
+<p><strong>The project uses its own working copy.</strong> Editing the original file you imported does not update this project automatically.</p>
+</details>
+</section>
+<section class="create">
+<h2>Start a new cashflow</h2>
+<p>Choose an FFF budget in Excel format. We make a working copy with its own dates, timing patterns and extracted Erittely list.</p>
+<p class="muted">Your original file is unchanged. Existing manual financing is retained. Existing cost allocations in the cashflow are kept in the original copy; planning starts with untimed costs.</p>
+<div class="choices"><label class="file-button">Choose a budget<input id="file" type="file" accept=".xlsx,.xlsm"></label><button id="demo">Try a fictional example</button></div>
+<form id="setup" hidden>
+<div class="chosen"><strong id="filename"></strong><span>Ready to check and copy</span></div>
+<div class="fields"><label>Project name<input id="name" required maxlength="100"></label><label>First cashflow month<input id="first" type="text" placeholder="02/2027" required><small>MM/YYYY, e.g. 02/2027. YYYY-MM also works.</small></label></div>
+<p class="muted">The month is taken from the workbook when available. Keep it unchanged if financing has already been entered.</p>
+<div id="allowance-choice" class="local-note" hidden></div>
+<details><summary>Source columns and worksheet names</summary>
+<p>Defaults match the FFF template. The original cashflow layout must have cost rows 21–40, total row 41 and closing balance row 42.</p>
+<div id="mapping" class="fields mapping"></div>
+</details>
+<div class="next"><strong>What happens next</strong><p>1. Check that every extracted cost matches the budget total.<br>2. Set production dates in the planner.<br>3. Select costs, assign timing and Save to the working copy.</p></div>
+<button id="create" class="primary" type="submit">Check budget and create project</button>
+</form>
+</section>
+<p class="muted">Close this app’s Terminal window or use Stop app when finished. Save your work first. Reopen with Start Cashflow Builder.command.</p>
+</main><script src="/welcome.js"></script></body></html>

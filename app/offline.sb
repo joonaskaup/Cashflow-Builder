@@ -1,0 +1,7 @@
+(version 1)
+(allow default)
+; The web app can talk only to loopback. Browser UI has a matching CSP.
+(deny network-outbound)
+(allow network-outbound (remote ip "localhost:*"))
+(deny network-bind)
+(allow network-bind (local ip "localhost:*"))
