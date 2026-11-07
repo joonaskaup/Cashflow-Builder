@@ -20,6 +20,8 @@ The app contains Python and the libraries it needs. No separate Python installat
 
 The preview is locally (ad-hoc) signed, **not Apple-notarized**. It is being tested as a replacement for the older folder download, which can trigger separate warnings for Python and its libraries. Signature-integrity and functional tests do not prove that a downloaded app passes Gatekeeper.
 
+A real browser download passed testing on the development Mac after one app-specific approval: import, save, report export and reopening worked without separate component warnings. An independent clean-account or second-Mac check remains. See the [test record](docs/MAC_DISTRIBUTION_CHECK.md).
+
 If you downloaded it from this repository's release and choose to trust it:
 
 1. Click **Done** in the warning.
