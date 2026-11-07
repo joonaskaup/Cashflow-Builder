@@ -16,33 +16,35 @@ The `app` folder is the canonical application source. Edit it directly. The hist
 - `app/runtime`: ignored local release dependency; never committed.
 - `dist`: ignored packaged releases.
 
-## Local setup
+## Building the Mac app
 
-Use Python 3.12 and the pinned packages in `requirements.txt`. The macOS application release includes a relocatable Apple silicon Python runtime in `app/runtime/python`. The source archive does not include that runtime.
-
-For engine work, create a virtual environment and install the requirements. To exercise the actual launcher and all integration tests, use the bundled runtime from a trusted Cashflow Builder release, copied into `app/runtime`. Keep dependency licence files with it.
-
-Build the offline help after changing the Markdown guide:
+Use an isolated Python 3.12 environment and install `requirements-build.txt`. The tested build uses Python 3.12.14 and PyInstaller 6.22.3 on Apple silicon. Xcode Command Line Tools are required for the native Swift launcher and icon.
 
 ```sh
-python3 scripts/build_docs.py
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-build.txt
+.venv/bin/python scripts/build_macos.py
+.venv/bin/python tests/accept_macos.py
 ```
 
-On a Mac with the runtime in place:
+If the default SDK is newer than the installed Swift compiler, set `SDKROOT` to an installed compatible macOS SDK. The tested compiler/SDK combination uses macOS 15.4 SDK with an arm64 macOS 12 deployment target.
 
-```sh
-app/runtime/python/bin/python3 -I scripts/package.py
-app/runtime/python/bin/python3 -I scripts/check.py
-```
+The builder collects only application assets, the fictional workbook and dependency licences. PyInstaller bundles the Python engine. A native launcher owns its sandboxed process, handles Dock reopening and confirms quitting. All nested binaries and the outer app are locally signed; the builder fails if strict signature verification fails. Local signing is not Developer ID signing or Apple notarization.
 
-Node.js is needed for the JavaScript tests, but not for end users. Tests open loopback servers and use isolated temporary projects. The acceptance test also exercises macOS `sandbox-exec` and `ditto`, so it must run on macOS outside a sandbox that forbids those operations.
+The resulting `.app` and ZIP are under `dist`. Use the `-app.zip` asset for the new distribution. Do not replace a published asset without changing its version and checksum.
 
-The app can be launched with `app/Start Cashflow Builder.command`. Use fictional data for development and demonstrations.
+The functional acceptance script uses temporary fictional projects, relocates the app and project storage, checks preserved timing, and verifies that use has not changed the signed bundle. It does **not** bypass or prove Gatekeeper approval. Test a real browser download separately, without stripping quarantine. An unsigned first-open exception requires the tester's deliberate approval.
+
+## Regression checks and legacy folder package
+
+`app` remains the canonical source. `docs/USER_GUIDE.md` generates offline `app/help.html` through `scripts/build_docs.py`.
+
+The older folder-package regression tests use a relocatable runtime at `app/runtime/python` copied from a trusted release. Build that test package with `scripts/package.py`, then run `scripts/check.py`. Node.js is required for the JavaScript tests. Tests open loopback servers and require macOS sandbox-exec and ditto. They never need real projects.
 
 ## Release procedure
 
 1. Update `app/version.py`, the changelog, guide version and download filename in the README. Keep the version and date consistent.
-2. Build help, run the package script, then run `scripts/check.py` using the bundled runtime. Packaging rejects unexpected first-party files and never includes Projects or backups.
+2. Run the regression checks, build the Mac app with `scripts/build_macos.py`, then run `tests/accept_macos.py` against its ZIP. The legacy folder tests also require `scripts/package.py` before `scripts/check.py`. Packages never include Projects or backups.
 3. Check the archive inventory and hashes. Test a fresh unzip, launch, fictional import, save/reopen and update of an older test installation.
    Also test a browser-downloaded release on a clean Mac account. A local ZIP/launch test does not exercise download quarantine or establish Gatekeeper acceptance. Record signing/notarization status and any first-open prompts; never describe local launch success as an Apple security check.
 4. Commit the source and documentation, then tag the exact tested commit `v<version>`.

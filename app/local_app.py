@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import re
 import secrets
+import signal
 import shutil
 import socket
 import subprocess
@@ -51,6 +52,15 @@ MAPPING={'sheet':'Erittely','label':'B','amount':'H','section':'A','description'
          'adminLabel':'HALLINTOKULUT korkeintaan 5%','reserveLabel':'VARAUS SATUNNAISIIN KULUIHIN 7-10%',
          'phaseColumns':[],'allowanceCategorySource':'Primary labels'}
 MAX_FILE=25*1024*1024
+
+def process_command(mode,root):
+    if getattr(sys,'frozen',False):return [sys.executable,mode,str(root)]
+    return [sys.executable,'-I',str(APP/'local_app.py'),mode,str(root)]
+
+def default_projects():
+    if getattr(sys,'frozen',False):
+        return Path.home()/'Library/Application Support/Cashflow Builder/Projects'
+    return APP/'Projects'
 
 def read_json(path):return json.loads(Path(path).read_text())
 def write_json(path,value):
@@ -269,7 +279,7 @@ class Manager:
             config={'budget':str(budget),'cashflowSheet':body.get('cashflowSheet','Maksuvalmiussuunnitelma'),
                     'firstMonth':first+'-01','excludedSections':'','mapping':mapping}
             # Extraction globals stay confined to their own short-lived process.
-            run=subprocess.run([sys.executable,'-I',str(APP/'local_app.py'),'initialize',str(root)],
+            run=subprocess.run(process_command('initialize',root),
                                input=json.dumps(config),text=True,capture_output=True,timeout=90)
             result=json.loads(run.stdout)
             if run.returncode or 'error' in result:raise ValueError(result.get('error','Could not import workbook'))
@@ -288,7 +298,7 @@ class Manager:
         current=self.children.get(ident)
         if current and current['process'].poll() is None:return {'url':current['url']}
         token=secrets.token_urlsafe(32)
-        p=subprocess.Popen([sys.executable,'-I',str(APP/'local_app.py'),'project',str(root)],
+        p=subprocess.Popen(process_command('project',root),
                            stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,text=True)
         p.stdin.write(json.dumps({'token':token,'home':self.url})+'\n');p.stdin.close()
         import selectors
@@ -331,7 +341,7 @@ def manage(root,no_browser=False,port=0):
             if self.static(APP/'welcome',{'index.html','welcome.js','style.css'}):return
             if not self.valid():return self.respond(403,{'error':'Use the Start Cashflow Builder launcher to open this page'})
             if self.path=='/api/projects':
-                return self.respond(200,{'projects':manager.projects(),'folder':str(manager.root)})
+                return self.respond(200,{'projects':manager.projects(),'folder':str(manager.root),'bundled':bool(getattr(sys,'frozen',False))})
             self.respond(404,{'error':'Not found'})
         def do_POST(self):
             if not self.valid():return self.respond(403,{'error':'Local session expired. Use the launcher again.'})
@@ -341,6 +351,9 @@ def manage(root,no_browser=False,port=0):
                     if self.path=='/api/stage':result=manager.stage(body)
                     elif self.path=='/api/create':result=manager.create(body)
                     elif self.path=='/api/open':result=manager.open(body.get('id'))
+                    elif self.path=='/api/open-folder':
+                        subprocess.run(['/usr/bin/open',str(manager.root)],check=True)
+                        result={'opened':True}
                     elif self.path=='/api/stop':
                         result={'stopped':True}
                         threading.Thread(target=self.server.shutdown,daemon=True).start()
@@ -355,17 +368,21 @@ def manage(root,no_browser=False,port=0):
     print('Cashflow Builder is running. Close this window to stop it.',flush=True)
     print(manager.url,flush=True)
     if not no_browser:subprocess.Popen(['/usr/bin/open',manager.url],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    previous_term=None
+    if threading.current_thread() is threading.main_thread():
+        previous_term=signal.signal(signal.SIGTERM,lambda *_:threading.Thread(target=http.shutdown,daemon=True).start())
     try:http.serve_forever()
     except KeyboardInterrupt:pass
     finally:
         manager.close();http.server_close()
         (root/'.session.json').unlink(missing_ok=True)
         manager_lock.close()
+        if previous_term is not None:signal.signal(signal.SIGTERM,previous_term)
 
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('mode',nargs='?',default='manager',choices=['manager','project','initialize'])
-    parser.add_argument('root',nargs='?',default=str(APP/'Projects'))
+    parser.add_argument('root',nargs='?',default=str(default_projects()))
     parser.add_argument('--no-browser',action='store_true');parser.add_argument('--port',type=int,default=0)
     args=parser.parse_args()
     if args.mode=='initialize':

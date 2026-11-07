@@ -1,5 +1,17 @@
 # Releases
 
+## 0.2.0rc1 — 7 November 2026
+
+Mac app packaging preview; not Apple-notarized and not promoted as the general release.
+
+- Bundle the engine and Python libraries inside Cashflow Builder.app.
+- Add a native launcher, timeline icon, Dock reopening and save reminder on Quit.
+- Keep projects in a permanent Application Support folder outside the app.
+- Add migration guidance and an Open Projects folder button.
+- Verify nested code signatures and actual frozen import/save/refresh/relocation behaviour.
+- Retain local-only network access and the existing planning engine.
+
+
 ## 0.1.0 — 6 November 2026
 
 First public Cashflow Builder release for Apple silicon Macs.

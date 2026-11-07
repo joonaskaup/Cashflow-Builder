@@ -4,30 +4,30 @@ Import an existing FFF budget, plan work and payments on a timeline, and export 
 
 Start with a rough plan for several costs at once. Refine individual costs with work periods, payment months, percentages and installments. A report of work dates and payments provides a starting point for preparing agreements.
 
-**For Apple silicon Macs.** This first public release is version **0.1.0**. Intel Mac and Windows packages are not available.
+**For Apple silicon Macs, macOS 12 or later.** Version **0.2.0rc1** is a Mac app preview. Intel Mac and Windows packages are not available.
 
 ## Download and start
 
-1. Open the [latest release](https://github.com/joonaskaup/Cashflow-Builder/releases/latest).
-2. Download **Cashflow-Builder-0.1.0-macos-arm64.zip** from **Assets**. GitHub's “Source code” downloads do not include the runtime needed to launch the app.
-3. Unzip it and keep the whole **Cashflow Builder** folder together in a writable location on your Mac.
-4. Double-click **Start Cashflow Builder.command**. Keep its Terminal window open while working.
+1. Open the [Mac app preview release](https://github.com/joonaskaup/Cashflow-Builder/releases/tag/v0.2.0rc1).
+2. Download **Cashflow-Builder-0.2.0rc1-macos-arm64-app.zip** from **Assets**. GitHub's “Source code” downloads are not runnable Mac apps.
+3. Unzip it and move **Cashflow Builder.app** to Applications or another permanent location.
+4. Open Cashflow Builder. Its interface opens in your browser; clicking its Dock icon reopens the page.
 5. Try the fictional example, or import your own saved and closed Excel budget.
 
-The package includes Python and the libraries it needs. You do not need to install a programming environment. It is a folder-based app, not a signed or notarized macOS installer.
+The app contains Python and the libraries it needs. No separate Python installation or Terminal window is required. Projects are stored outside the app, so replacing it during an update keeps them in place.
 
 ### If macOS says “Not Opened”
 
-The current release is **unsigned and not notarized**. macOS may block the downloaded launcher with “Apple could not verify … is free of malware”. Local launch tests do not replace Apple's verification.
+The preview is locally (ad-hoc) signed, **not Apple-notarized**. It is being tested as a replacement for the older folder download, which can trigger separate warnings for Python and its libraries. Signature-integrity and functional tests do not prove that a downloaded app passes Gatekeeper.
 
 If you downloaded it from this repository's release and choose to trust it:
 
 1. Click **Done** in the warning.
 2. Open **System Settings → Privacy & Security**, then scroll to **Security**.
-3. Find the blocked **Start Cashflow Builder.command** and click **Open Anyway**.
+3. Find the blocked **Cashflow Builder.app** and click **Open Anyway**.
 4. Review the confirmation and click **Open**. Authenticate if macOS asks.
 
-The updater may need the same per-file approval. If another component is blocked, check its exact name before proceeding. If the message says the software **will damage your computer**, is **damaged**, or no exception is available, stop and report that exact message.
+If Python or individual libraries still trigger warnings, stop and report them; do not work through a series of component exceptions. If the message says the software **will damage your computer**, is **damaged**, or no exception is available, stop and report that exact message.
 
 See [Apple's opening instructions](https://support.apple.com/en-us/102445). Do not disable Gatekeeper globally or remove quarantine from your entire Downloads folder. A signed and notarized package is not yet available.
 
@@ -54,11 +54,13 @@ The [user guide](docs/USER_GUIDE.md) covers:
 - Updating budget figures while retaining saved timing.
 - Updating the app, moving projects and restoring backups.
 
-The same guide is available offline through **Help** on the start page and inside every project. It is also included as **help.html** in the download.
+The same guide is available offline through **Help** on the start page and inside every project.
 
 ## Updating an existing installation
 
-Save your work. Unzip the new release separately, run **Update existing Cashflow Builder.command** from the new download, and choose your existing app folder. Then launch from that existing folder, where your **Projects** folder remains. Do not replace the whole folder in Finder or import every project again.
+For an existing **.app** installation: save, quit, then replace the application. Projects stay in `~/Library/Application Support/Cashflow Builder/Projects`.
+
+For the older **folder version**: save and stop it, keep its Projects folder as a backup, then copy the individual project folders into the new app's Projects folder. The start page has **Open Projects folder** and migration instructions. Do not use the old updater for the .app, replace a same-named project folder, or re-import budgets to migrate saved timing.
 
 See [updating and backups](docs/USER_GUIDE.md#updating-the-app-and-backing-up-projects).
 

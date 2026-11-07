@@ -6,6 +6,8 @@ __pycache__/
 .env.*
 app/runtime/
 dist/
+build/
+*.spec
 **/Projects/
 **/Original/
 **/Budget/

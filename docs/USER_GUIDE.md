@@ -1,6 +1,6 @@
 # Cashflow Builder user guide
 
-Version 0.1.0 · 6 November 2026
+Version 0.2.0 preview · 7 November 2026
 
 Use this guide while making your cashflow. The main distinction is between **when work happens** and **when money is paid**. A payment month alone does not create a work period.
 
@@ -16,20 +16,27 @@ Use this guide while making your cashflow. The main distinction is between **whe
 
 Try the fictional example first if you want to explore without using a real budget.
 
-## Opening a downloaded copy on macOS
+## Installing the Mac app preview
 
-The current release is unsigned and not notarized. macOS may show **Not Opened** and say Apple could not verify that the launcher is free of malware. Local app tests do not replace Apple's verification.
+This preview is a single **Cashflow Builder.app** containing its engine and libraries. Download the **macos-arm64-app.zip** release asset and unzip it. Move Cashflow Builder.app to Applications or another permanent location, then open it. Its interface opens in your browser; no Python installation or Terminal window is required.
 
-If you downloaded the release from the Cashflow Builder GitHub repository and choose to trust it:
+The bundle is locally signed but **not Apple-notarized**. macOS may require an explicit first-open approval. If you choose to trust this download, use **System Settings → Privacy & Security → Open Anyway** for **Cashflow Builder.app**, then confirm Open. Apple reference: https://support.apple.com/en-us/102445.
 
-1. Click **Done** in the warning.
-2. Open **System Settings → Privacy & Security** and scroll to **Security**.
-3. Find **Start Cashflow Builder.command** and click **Open Anyway**.
-4. Review the confirmation, click **Open**, and authenticate if asked.
+The browser-download first-open test is separate from the app's functional tests. If macOS instead asks you to approve Python or individual libraries, stop and report the exact warning. Do not work through a series of component exceptions or disable Gatekeeper globally. The preview is not a claim of Apple verification.
 
-The updater may need the same per-file approval. Check the exact name if another component is blocked. If the warning says software will damage your computer, is damaged, or no exception is available, stop and report the message. Do not disable Gatekeeper globally or remove quarantine from your whole Downloads folder.
+Projects are stored outside the application, in **Library/Application Support/Cashflow Builder/Projects** within your home folder. The start page shows the exact location and has an **Open Projects folder** button. Replacing the app does not replace these files.
 
-Apple's reference: https://support.apple.com/en-us/102445. A signed and notarized package is not yet available.
+Click the app's Dock icon to reopen its browser page. Save first, then use **Stop app** on the Projects page or **Quit Cashflow Builder**. Quitting reminds you to save but does not save browser drafts automatically.
+
+### Bring existing projects from a folder version
+
+1. Save your work and stop the old Cashflow Builder or Cashflow Local app.
+2. Keep its whole Projects folder as a backup.
+3. Open the new app and choose **Open Projects folder**. Stop the new app before copying files.
+4. In Finder, copy the individual project folders from inside the old Projects folder into the new Projects folder. Copy them alongside any existing projects; do not replace a same-named folder or nest another Projects folder inside it.
+5. Reopen the app. The copied projects should appear with their saved timing. Open one and check its totals before continuing.
+
+The old projects are not moved or deleted automatically. Do not re-import budgets to migrate saved plans, and do not edit both old and new copies in parallel.
 
 ## Which workbook am I editing?
 
@@ -265,26 +272,22 @@ Use the report as a starting point. It distinguishes exact work dates, month est
 
 Updating the app and refreshing the budget are different operations:
 
-- **Update existing Cashflow Builder.command** installs newer app code and instructions.
+- **Replacing Cashflow Builder.app** installs newer app code and instructions.
 - **Refresh budget** rereads the budget figures inside your existing project.
 
 ### Install a new app release
 
-1. Save your work. Stop the app from **Projects → Stop app**.
-2. Unzip the new release into a separate folder. Do not replace the existing folder in Finder.
-3. Run **Update existing Cashflow Builder.command** from the new download. Select the existing folder containing your app and Projects.
-4. The updater backs up the previous application code in **App backups** and installs the new version. It leaves Projects, workbooks, saved timing and the installed runtime in place.
-5. Launch **Start Cashflow Builder.command** from that existing folder. Open projects through Projects rather than an old browser tab.
+For **Cashflow Builder.app**, save your work and quit the app. Download and unzip the new Mac app release, then replace the application in Applications. Your Projects folder is separate and stays in place. Start the new app and check the version and stored-project location.
 
-If the updater finds the app running, use **Open existing app**, save all project tabs, then choose **I saved — update**. It requests a normal shutdown. If it cannot reach the app, stop it from Projects or close its Terminal window after saving, then Retry.
+The older **Update existing Cashflow Builder.command** applies only to the old folder distribution. Do not use it to install the new .app. Use the migration steps above when moving from a folder version for the first time.
 
-If the project list is unexpectedly empty after an update, check the **Stored on this Mac** path on the start page. You may have launched the fresh download rather than the existing installation. Stop that copy and launch from the folder containing your Projects. There is no need to import the budgets again.
+If projects are missing, check **Stored on this Mac** before importing anything. Keep a full backup and copy the old project folders into the new location as described above.
 
 ### Back up the complete project
 
 Stop the app and copy the whole **Projects** folder to your backup location. It contains the original and working budgets, extracted lists, shared dates and timing patterns. Copying only the Excel cashflow does not back up all planning information.
 
-Automatic pre-write workbook backups live inside each project's **work/backups**. App backups contain application code, not project data. Keep your own full-project backups too.
+Automatic pre-write workbook backups live inside each project's **work/backups**. Keep your own full-project backups too.
 
 To restore a full backup, stop the app, retain a copy of the current Projects folder, then restore the backed-up Projects folder as a unit. Avoid mixing individual saved-plan files from different dates. Start the app and verify the project before continuing.
 

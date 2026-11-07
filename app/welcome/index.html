@@ -9,6 +9,13 @@
 <h2>Your projects</h2>
 <div id="projects"><p class="muted">Opening local projects…</p></div>
 <p class="muted" id="folder"></p>
+<div id="bundle-storage" hidden>
+<button id="open-folder">Open Projects folder</button>
+<details><summary>Bring projects from an older folder version</summary>
+<p>Save your work and stop the old app first. Copy the project folders from its <strong>Projects</strong> folder into the location shown above. Keep the old copy as a backup. Reopen Cashflow Builder to see them. There is no need to import the budgets again.</p>
+<p>Projects stay outside the application. Replacing Cashflow Builder.app during an update keeps these files in place.</p>
+</details>
+</div>
 </section>
 <section class="refresh-help">
 <h2>Updating an existing budget</h2>
@@ -43,5 +50,5 @@
 <button id="create" class="primary" type="submit">Check budget and create project</button>
 </form>
 </section>
-<p class="muted">Close this app’s Terminal window or use Stop app when finished. Save your work first. Reopen with Start Cashflow Builder.command.</p>
+<p class="muted" id="launch-help">Close this app’s Terminal window or use Stop app when finished. Save your work first. Reopen with Start Cashflow Builder.command.</p>
 </main><script src="/welcome.js"></script></body></html>

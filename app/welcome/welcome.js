@@ -16,6 +16,8 @@ async function task(fn){
 }
 async function refresh(){
  const data=await api('projects');$('projects').replaceChildren();$('folder').textContent='Stored on this Mac: '+data.folder;
+ $('bundle-storage').hidden=!data.bundled;
+ if(data.bundled)$('launch-help').textContent='Save your work, then use Stop app or Quit Cashflow Builder. Reopen Cashflow Builder.app to return. Your projects are stored separately from the application.';
  if(!data.projects.length){$('projects').textContent='No projects yet. Try the fictional example or choose a budget below.';return;}
  for(const p of data.projects){
   const row=document.createElement('div');row.className='project';
@@ -49,6 +51,7 @@ async function stage(body){
  notice('Workbook selected. Check the project name and first month, then create the project.',true);
 }
 $('demo').onclick=()=>task(()=>stage({demo:true}));
+$('open-folder').onclick=()=>task(()=>api('open-folder',{}));
 $('file').onchange=()=>task(async()=>{
  const file=$('file').files[0];if(!file)return;
  if(file.size>25*1024*1024)throw Error('Choose a workbook smaller than 25 MB.');
