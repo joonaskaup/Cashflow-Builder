@@ -4,7 +4,7 @@ Artifact: `Cashflow-Builder-0.2.0rc1-macos-arm64-app.zip`, from tag `v0.2.0rc1` 
 
 SHA-256: `d60c3ef512d365f2bf4727e02866ebc9523d7839d59ea499e7043bc419b8976c`.
 
-This preview uses local (ad-hoc) signatures. It has no Developer ID signature or Apple notarization.
+This build uses local (ad-hoc) signatures. It has no Developer ID signature or Apple notarization.
 
 | Check | Result |
 | --- | --- |
@@ -19,6 +19,6 @@ This preview uses local (ad-hoc) signatures. It has no Developer ID signature or
 | Separate component warnings after approval | None observed during fictional import, opening the project, saving a payment and exporting an Excel report. |
 | Normal reopening | Stopped through the app, reopened the same approved copy from Finder without another approval, and reopened the fictional project with its saved €1,500 payment intact. |
 
-No quarantine attributes were removed and Gatekeeper was not disabled. The single-app approval route passed on this Mac. This is not Apple notarization or a guarantee for other Macs. An independent clean-account or second-Mac test remains before a general release; the development Mac has run local builds.
+No quarantine attributes were removed and Gatekeeper was not disabled. The single-app approval route passed on this Mac. This is not Apple notarization or a guarantee for other Macs. An independent clean-account or second-Mac test remains; the development Mac has run local builds.
 
-The published 0.1.0 folder release remains available, with a warning about repeated launcher/Python/library prompts. The preview is not marked as the latest regular release.
+The published 0.1.0 folder release remains available, with a warning about repeated launcher/Python/library prompts. On 12 November 2026, the tested app bundle was promoted from prerelease to Latest so the older package is no longer recommended by GitHub. The original tag, files and checksums are unchanged; this designation does not imply additional testing or notarization.

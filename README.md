@@ -4,11 +4,11 @@ Import an existing FFF budget, plan work and payments on a timeline, and export 
 
 Start with a rough plan for several costs at once. Refine individual costs with work periods, payment months, percentages and installments. A report of work dates and payments provides a starting point for preparing agreements.
 
-**For Apple silicon Macs, macOS 12 or later.** Version **0.2.0rc1** is a Mac app preview. Intel Mac and Windows packages are not available.
+**For Apple silicon Macs, macOS 12 or later.** The recommended download is **0.2.0rc1**, packaged as a Mac app. Intel Mac and Windows packages are not available.
 
 ## Download and start
 
-1. Open the [Mac app preview release](https://github.com/joonaskaup/Cashflow-Builder/releases/tag/v0.2.0rc1).
+1. Open the [latest Mac release](https://github.com/joonaskaup/Cashflow-Builder/releases/latest).
 2. Download **Cashflow-Builder-0.2.0rc1-macos-arm64-app.zip** from **Assets**. GitHub's “Source code” downloads are not runnable Mac apps.
 3. Unzip it and move **Cashflow Builder.app** to Applications or another permanent location.
 4. Open Cashflow Builder. Its interface opens in your browser; clicking its Dock icon reopens the page.
@@ -18,7 +18,7 @@ The app contains Python and the libraries it needs. No separate Python installat
 
 ### If macOS says “Not Opened”
 
-The preview is locally (ad-hoc) signed, **not Apple-notarized**. It is being tested as a replacement for the older folder download, which can trigger separate warnings for Python and its libraries. Signature-integrity and functional tests do not prove that a downloaded app passes Gatekeeper.
+The app is locally (ad-hoc) signed, **not Apple-notarized**. It replaces the older folder download, which can trigger separate warnings for Python and its libraries. Signature-integrity and functional tests do not prove that a downloaded app passes Gatekeeper.
 
 A real browser download passed testing on the development Mac after one app-specific approval: import, save, report export and reopening worked without separate component warnings. An independent clean-account or second-Mac check remains. See the [test record](docs/MAC_DISTRIBUTION_CHECK.md).
 
